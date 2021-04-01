@@ -122,6 +122,8 @@ uint64_t buffer[MAX_ROWS] = {
 };
 
 LedControl lc = LedControl(11, 13, 4, 4);
+Renderer *renderer;
+TextGrid *grid;
 
 void setup() {
   for(int add = 0; add < NUM_MODULES; add++) {
@@ -130,6 +132,10 @@ void setup() {
     lc.setIntensity(add, 1);// sets brightness (0~15 possible values)
     lc.clearDisplay(add);// clear screen
   }
+
+   grid = new TextGrid(32, 8);
+   grid->setText("Mazdak Arab!");
+   renderer = new Renderer(&lc, grid);
 }
 
 void drawChar(int module, uint64_t c) {
@@ -213,7 +219,11 @@ void loop() {
    delay(100);
    }
    */
-  scrollText("ABCDEFGH");
+
+   renderer->render();
+
+   delay(1000 * 5);
+   scrollText("ABCDEFGH");
   delay(100);
   // drawChar(3, IMAGES[0]);
   // drawChar(2, IMAGES[1]);

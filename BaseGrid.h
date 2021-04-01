@@ -9,7 +9,7 @@ public:
   
   virtual void reset();
   // Returns a 2d array of row x cols x 8 bit
-  virtual uint8_t **nextFrame();
+  virtual uint8_t *nextFrame();
   int width() __attribute__((always_inline)) {
     return _width;
   }
@@ -17,7 +17,7 @@ public:
     return _height;
   }
   
-private:
+protected:
   int _width, _height;
 };
 
