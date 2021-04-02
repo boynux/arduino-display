@@ -3,6 +3,13 @@
 #include "Renderer.h"
 #include "TextGrid.h"
 
+#if !defined(__AVR__)
+#define bitRead(value, bit) (((value) >> (bit)) & 0x01)
+#define bitSet(value, bit) ((value) |= (1UL << (bit)))
+#define bitClear(value, bit) ((value) &= ~(1UL << (bit)))
+#define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
+#endif
+
 /*
 
  */
@@ -67,7 +74,7 @@ const uint64_t IMAGES[] = {
   0x0070780F0F787000, // Y
   0x006171594D474300, // Z
   0x0041417F7F000000, // [
-  0x0002060C18302000, // \
+  0x0002060C18302000, // backspace
   0x0000007F7F414100, // ]
   0x0810204020100800, // ^
   0x0002020202020200, // _
@@ -183,8 +190,8 @@ void appendBuffer(int col) {
   } 
 }
 
-void scrollText(char *string) {
-  for(int i = 0; i < strlen(string); i++) {
+void scrollText(const char *string) {
+  for(unsigned int i = 0; i < strlen(string); i++) {
     uint64_t c = IMAGES[string[i] - 0x20];
 
     for(int col = 0; col < 8; col++) {

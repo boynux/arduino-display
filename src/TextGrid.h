@@ -3,6 +3,7 @@
 
 #include "BaseGrid.h"
 #include "stdlib.h"
+#include "string.h"
 
 const uint64_t _TEXT_GRID_FONTS[] = {
   0x0000000000000000,
@@ -109,7 +110,7 @@ public:
 
     // Allocate 8bit chunk of w * h + 1 byte for null-termoinator
     _buffer = new uint8_t[width * height / 8 + 1]();
-    _text = "";
+    _text = strdup("");
   }
 
   ~TextGrid() {
@@ -130,4 +131,4 @@ private:
   char* _text;
 };
 
-#endif _TEXT_GRID_H
+#endif
