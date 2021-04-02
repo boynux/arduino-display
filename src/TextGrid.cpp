@@ -18,7 +18,7 @@ uint8_t* TextGrid::nextFrame() {
 
     // assuming each segment is 8 x 8
     for(int row = 0; row < 8; row++) {
-      _buffer[segment * 8 + row] = (uint8_t)(c >> (row * 8));
+      _buffer[segment * 8 + row] = (uint8_t)(c >> ((7 - row) * 8));
     }
 
     length += 8;

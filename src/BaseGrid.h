@@ -6,6 +6,7 @@
 class BaseGrid {
 public:
   BaseGrid(int width, int hieght);
+  BaseGrid(): BaseGrid(8, 8) {}
   
   virtual void reset() = 0;
   // Returns a 2d array of row x cols x 8 bit

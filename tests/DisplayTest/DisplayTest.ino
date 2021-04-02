@@ -7,7 +7,7 @@
 	uint8_t b[8];                          \
   FUNC(#ARG, b);		         						 \
 	for(unsigned int i = 0; i < 8; i++) {  \
-		assertEqual(b[i], e[i]);         \
+		assertEqual(b[i], e[7 - i]);         \
   }                                      \
 }
 	
