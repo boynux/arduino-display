@@ -14,14 +14,15 @@ union Data {
 };
 
 
-void ScrollDecorator::scrollText(int width, int height, int offset, const uint8_t *buffer, uint8_t *out) {
+void ScrollDecorator::scrollText(int width, int height, int offset, const uint8_t *nextFrame, uint8_t *out) {
   for(unsigned int i = 0; i < height; i++) {
     union Data data;
-    for(unsigned int j = 0; j < width / 8 + 1; j++) {
-      data.parts[j] = buffer[i + j * 8];
+    for(unsigned int j = 0; j < width / 8; j++) {
+      data.parts[j] = out[i + j * 8];
     }
 
-    data.data >>= offset;
+    data.parts[width / 8] = nextFrame[i] >> offset % 8;
+    data.data >>= 1;
     for(unsigned int j = 0; j < width / 8; j++) {
       out[i + j * 8] = data.parts[j];
     }
@@ -29,14 +30,10 @@ void ScrollDecorator::scrollText(int width, int height, int offset, const uint8_
 }
 
 uint8_t *ScrollDecorator::nextFrame() {
-  if(_index + width() < _grid->width()) {
     uint8_t* buffer = _grid->nextFrame();
-
-    scrollText(width(), height(), _index % 8, _grid->nextFrame() + _index / 8 * 8, _buffer);
-    _index ++;
-  }
-
-  return _buffer;
+    scrollText(width(), height(), _index, buffer + _index / 8 * 8, _buffer);
+    _index = (_index + 1) % _grid->width();
+    return _buffer;
 }
 
 void ScrollDecorator::reset(){

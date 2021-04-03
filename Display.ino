@@ -17,7 +17,7 @@ void setup() {
   }
 
 	TextGrid *textGrid = new TextGrid(96, 8);
-	textGrid->setText("Mazdak Arab!");
+	textGrid->setText("1234567890! ");
 	
 	grid = new ScrollDecorator(32, 8, textGrid);
 	renderer = new Renderer(&lc, grid);
@@ -27,6 +27,5 @@ void loop() {
 	renderer->render();
 
   delay(100);
-
 }
 
