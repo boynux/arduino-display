@@ -1,6 +1,11 @@
 #include "TextGrid.h"
 #include "string.h"
 
+TextGrid::TextGrid(const char *text):
+  TextGrid(strlen(text) * 8, 8) {
+  setText(text);
+}
+
 void TextGrid::setText(const char *text) {
   if(_text) {
     free(_text);

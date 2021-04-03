@@ -113,6 +113,7 @@ public:
     _text = strdup("");
   }
 
+  TextGrid(const char *text);
   ~TextGrid() {
     delete _buffer;
   }

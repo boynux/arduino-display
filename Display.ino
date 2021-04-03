@@ -16,10 +16,9 @@ void setup() {
     lc.clearDisplay(add);// clear screen
   }
 
-	TextGrid *textGrid = new TextGrid(96, 8);
-	textGrid->setText("Hello world!  ");
+	const char text[] = "Hello world!  ";
 	
-	grid = new ScrollDecorator(32, 8, textGrid);
+	grid = new ScrollDecorator(32, 8, new TextGrid(text));
 	renderer = new Renderer(&lc, grid);
 }
 
