@@ -7,13 +7,6 @@ ScrollDecorator::ScrollDecorator(int width, int height, BaseGrid *grid):
   _index = 0;
 }
 
-
-union Data {
-  uint64_t data;
-  uint8_t parts[sizeof(uint64_t)];
-};
-
-
 void ScrollDecorator::scrollText(int width, int height, int offset, const uint8_t *nextFrame, uint8_t *out) {
   for(unsigned int i = 0; i < height; i++) {
     union Data data;

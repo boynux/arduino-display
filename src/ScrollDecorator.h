@@ -16,6 +16,9 @@ class ScrollDecorator: public BaseDecorator {
   unsigned int _index;
 };
 
-class EndOfBufferException {};
+union Data {
+  uint64_t data;
+  uint8_t parts[sizeof(uint64_t)];
+};
 
 #endif

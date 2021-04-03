@@ -17,7 +17,7 @@ void setup() {
   }
 
 	TextGrid *textGrid = new TextGrid(96, 8);
-	textGrid->setText("1234567890! ");
+	textGrid->setText("Hello world!  ");
 	
 	grid = new ScrollDecorator(32, 8, textGrid);
 	renderer = new Renderer(&lc, grid);
