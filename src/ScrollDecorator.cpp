@@ -3,20 +3,20 @@
 ScrollDecorator::ScrollDecorator(int width, int height, BaseGrid *grid):
   BaseDecorator(width, height, grid) {
 
-  _buffer = new uint8_t[width * height / 8](0);
+  _buffer = new uint8_t[width * height / 8];
   _index = 0;
 }
 
 void ScrollDecorator::scrollText(int width, int height, int offset, const uint8_t *nextFrame, uint8_t *out) {
-  for(unsigned int i = 0; i < height; i++) {
+  for(int i = 0; i < height; i++) {
     union Data data;
-    for(unsigned int j = 0; j < width / 8; j++) {
+    for(int j = 0; j < width / 8; j++) {
       data.parts[j] = out[i + j * 8];
     }
 
     data.parts[width / 8] = nextFrame[i] >> offset % 8;
     data.data >>= 1;
-    for(unsigned int j = 0; j < width / 8; j++) {
+    for(int j = 0; j < width / 8; j++) {
       out[i + j * 8] = data.parts[j];
     }
   }

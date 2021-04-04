@@ -9,10 +9,11 @@ TextGrid::TextGrid(const char *text):
 TextGrid* TextGrid::instanceWithString(const char* text) {
   int length = 0;
   int str_len = strlen(text);
-  Font font;
+  FontData font;
 
   for(int index = 0; index < str_len; ++index) {
-    length += font.getFont(text[index]).kerning;
+    Font::getFont(text[index], &font);
+    length += font.kerning;
   }
 
   length += length % 8 > 0 ? length % 8 : 0;
@@ -40,9 +41,10 @@ uint8_t* TextGrid::nextFrame() {
   uint8_t place = 0;
   uint8_t shift = 0;
   uint8_t row = 0;
+  FontData font;
 
   while(_text[place] != '\0') {
-    const FontData &font = _font->getFont(_text[place]);
+    Font::getFont(_text[place], &font);
 
     if(shift == 0) {
       for(row = 0; row < 7; row++) {

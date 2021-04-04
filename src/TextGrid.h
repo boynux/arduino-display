@@ -19,7 +19,7 @@ public:
 
   TextGrid(const char *text);
   ~TextGrid() {
-    delete _buffer;
+    delete[] _buffer;
     delete _text;
     delete _font;
   }
@@ -28,7 +28,7 @@ public:
     uint8_t size = width() * height() / 8 + 8;
     if(!_buffer) {
       // Allocate 8bit chunk of w * h + 1 byte for null-termoinator
-      _buffer = new uint8_t[size]();
+      _buffer = new uint8_t[size];
     }
 
     memset(_buffer, 0, size);
