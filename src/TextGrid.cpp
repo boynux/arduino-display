@@ -6,7 +6,7 @@ TextGrid::TextGrid(const char *text):
   setText(text);
 }
 
-static TextGrid* TextGrid::instanceWithString(const char* text) {
+TextGrid* TextGrid::instanceWithString(const char* text) {
   int length = 0;
   int str_len = strlen(text);
   Font font;
@@ -46,7 +46,7 @@ uint8_t* TextGrid::nextFrame() {
 
     if(shift == 0) {
       for(row = 0; row < 7; row++) {
-	_buffer[index * 8 + row] |= (font.line[7 - row] << 8 - remaining);
+	_buffer[index * 8 + row] |= (font.line[7 - row] << (8 - remaining));
       }
       remaining -= (font.kerning > 0 ? font.kerning : 8);
     } else {
