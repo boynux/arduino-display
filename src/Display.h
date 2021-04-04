@@ -7,5 +7,6 @@
 #include "Renderer.h"
 #include "BaseDecorator.h"
 #include "ScrollDecorator.h"
+#include "Font.h"
 
 #endif
