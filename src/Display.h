@@ -8,5 +8,6 @@
 #include "BaseDecorator.h"
 #include "ScrollDecorator.h"
 #include "Font.h"
+#include "Control.h"
 
 #endif

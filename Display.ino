@@ -3,7 +3,7 @@
 #include <Wire.h>
 #include <BMP180I2C.h>
 #include <Adafruit_BMP085.h>
-
+#include <string.h>
 #include "src/Display.h"
 
 #define NUM_MODULES 4
@@ -11,6 +11,8 @@
 #define DIN 13
 #define CS 12
 #define I2C_ADDRESS 0x77
+#define CONTROL_RX 5
+#define CONTROL_TX 4
 
 Adafruit_BMP085 bmp;
 BMP180I2C bmp180(I2C_ADDRESS);
@@ -19,6 +21,7 @@ DS3231 clock;
 LedControl lc = LedControl(DIN, CLK, CS, NUM_MODULES);
 Renderer *renderer;
 TextGrid *textGrid;
+Control control(CONTROL_RX, CONTROL_TX);
 
 bool century = false;
 bool h12Flag;
@@ -76,12 +79,29 @@ void setup() {
 	
 	BaseGrid *grid = new ScrollDecorator(32, 8, textGrid);
 	renderer = new Renderer(&lc, grid);
+
+	control.init();
+}
+
+void setText(const char* buffer) {
+	if(buffer != 0) {
+		Serial.println(buffer);
+		strcpy(text, buffer);
+	}
+
+	if(strcmp(text, "TIME") == 0) {
+		char temp[32];
+		getString(temp);
+		textGrid->setText(temp);
+	} else {
+		textGrid->setText(text);
+	}
 }
 
 void loop() {
 	renderer->render();
-	getString(text);
-	textGrid->setText(text);
-
+	// setText(0);
+	
   delay(30);
+	control.next(setText);
 }
