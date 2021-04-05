@@ -18,6 +18,10 @@ void Control::readBuffer(int size, char* buffer) {
   buffer[size] = '\0';
 }
 
+void Control::write(char c) {
+  serial.write(c);
+}
+
 void Control::next(void (callback) (const char *)) {
   long r = serial.available();
 
@@ -29,7 +33,8 @@ void Control::next(void (callback) (const char *)) {
   char *buffer = new char[r + 1];
   readBuffer(r, buffer);
 
-  const char* key = "TEXT:";
+  Serial.println(buffer);
+  const char* key = "";
   if (strncasecmp(buffer, key, strlen(key)) == 0) {
     callback(buffer + strlen(key));
   }

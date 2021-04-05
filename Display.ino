@@ -104,4 +104,8 @@ void loop() {
 	
   delay(30);
 	control.next(setText);
+
+	while(Serial.available()) {
+		control.write(Serial.read());
+	}
 }

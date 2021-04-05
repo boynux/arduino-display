@@ -10,7 +10,8 @@ class Control {
 
   void init(long baudRate = Control::BaudRate);
   void next(void (callback) (const char *));
-  
+
+  void write(char c);
  private:
   void readBuffer(int size, char* buffer);
   
